@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+{%from 'paginate_component.html' import render_pagination %}
+{%block title %}
+ВСІ ТОВАРИ МАГАЗИНУ
+{%endblock%}
+
+
+{%block content%}
+<div class="row row-cols-4">
+	{% for item in items %}
+	<div class="col p-2">
+		<div class="p-5 text-center border rounded">
+			<img src="/{{item.img}}" class="img-thumbnail">
+			<h2 class="p-1">{{item.name}}</h2>
+			<a href="{{url_for('item_app.view_item',item_id=item.id)}}"><button class="btn btn-info">дивитись більше</button></a>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+
+
+{{render_pagination(items,'item_app.view_items')}}
+
+{%endblock%}

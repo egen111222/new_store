@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{%block title %}
+{{item.name}}
+{%endblock%}
+
+
+{%block content%}
+<div class="text-center p-5">
+	<img src="/{{item.img}}" class="img-thumbnail">
+	<h1 class="display-1 p-5">{{item.name}}</h1>
+	<p>{{item.description}}</p>
+	<h4>Ціна товару: {{item.price}}</h4>
+	<a href="{{url_for('cart_app.add_item',item_id=item.id)}}"><button class="btn btn-success mt-2 mb-2">Додати до кошику</button></a>
+	<hr>
+<h6>Категорії до яких належить товар</h6>
+{%for category in item.categories%}
+	|<a href="{{url_for('category_app.view_category',category_id=category.id)}}">{{category.name}}</a>
+{%endfor%}
+</div>
+
+
+{%endblock%}

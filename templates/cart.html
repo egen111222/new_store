@@ -1,0 +1,95 @@
+{%extends 'layout.html' %}
+
+{%block title%}
+Кошик
+{%endblock%}
+
+{%block content%}
+
+{% if cart.items %}
+<h1 class="p-3">Перегляд кошику</h1>
+
+<h4 class="p-3">Загальна сумма замовлення {{cart.get_price()}}</h4>
+<h5 class="p-3">кількість обраних товарів {{cart.count()}}</h5>
+<hr>
+
+
+<div class="container w-75">
+
+<div class="accordion" id="accordionExample">
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        Товари додані до кошику
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        
+
+      	<table class="table">
+      		<tr>
+      			<td>Назва товару</td>
+      			<td>Вартість товару</td>
+      			<td>Наявні  дії</td>
+      		</tr>
+      		{%for number,item in cart.numerated_items %}
+      		<tr>
+      			<td>{{item.name}}</td>
+      			<td>{{item.price}}</td>
+      			<td><a href="{{url_for('cart_app.remove_item',item_id=number)}}"><button class="btn btn-danger">Видалити товар</button></a></td>
+      		</tr>
+      		{%endfor%}
+      	</table>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        Оформити замовлення
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        
+        <form action="{{url_for('order_app.create_order')}}" method="POST">
+        {%for field in form %}
+          <h4>{{field.label}}</h4>
+
+          {% if field.name != 'to_post' %}
+          <p>{{field(class="form-control")}}</p>
+
+          {%else%}
+          {{field()}}
+          {%endif%}
+
+        {%endfor%}
+        <button class="btn btn-success">Оформити</button>
+       </form>
+        
+
+      </div>
+    </div>
+  </div>
+
+
+</div>
+</div>
+
+
+{%else%}
+<div class="p-5 text-center text-danger">
+	<h2>Кошик порожній</h3>
+	<h4>Будь ласка спочатку додайте товари</h6>
+</div>
+{% endif %}
+
+
+
+
+{%endblock%}

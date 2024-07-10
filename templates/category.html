@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{%block title %}
+{{category.name}}
+{%endblock%}
+
+
+{%block content%}
+
+<div class="text-center p-5">
+	<img src="/{{category.img}}" class="img-thumbnail">
+	<h1 class="display-1 p-5">{{category.name}}</h1>
+	<p>{{category.description}}</p>
+	<hr >
+</div>
+
+<h3 class="text-center p-2 display-6">Товари категорії</h3>
+<div class="row row-cols-4">
+	{% for item in category.items %}
+	<div class="col p-2">
+		<div class="p-5 text-center border rounded">
+			<h2 class="p-1">{{item.name}}</h2>
+			<a href="{{url_for('item_app.view_item',item_id=item.id)}}"><button class="btn btn-success">дивитись більше</button></a>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+
+
+
+
+{%endblock%}

@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{%block title %}
+КАТЕГОРІЇ САЙТУ
+{%endblock%}
+
+
+{%block content%}
+<h1 class="text-center">Перегляд категорій на сайті</h1>
+<hr class="p-3">
+
+
+<div class="row row-cols-4">
+	{% for category in categories %}
+	<div class="col p-2">
+		<div class="p-5 text-center border rounded">
+			<img src="/{{category.img}}" class="img-thumbnail">
+			<h2 class="p-1">{{category.name}}</h2>
+			<a href="{{url_for('category_app.view_category',category_id=category.id)}}"><button class="btn btn-success">дивитись більше</button></a>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+
+{%endblock%}
